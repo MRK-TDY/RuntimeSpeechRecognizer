@@ -54,10 +54,10 @@ void FRuntimeSpeechRecognizerEditorModule::StartupModule()
 {
 	RegisterSettings();
 
-	if (!IsRunningDedicatedServer() && !IsRunningCommandlet())
-	{
-		SetupLanguageModel();
-	}
+	// if (!IsRunningDedicatedServer() && !IsRunningCommandlet())
+	// {
+	// 	SetupLanguageModel();
+	// }
 }
 
 void FRuntimeSpeechRecognizerEditorModule::ShutdownModule()
