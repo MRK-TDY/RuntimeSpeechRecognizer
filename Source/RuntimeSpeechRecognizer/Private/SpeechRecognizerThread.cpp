@@ -660,7 +660,7 @@ void FSpeechRecognizerThread::ProcessPCMData(Audio::FAlignedFloatBuffer PCMData,
 				ReportError(ShortErrorMessage, LongErrorMessage);
 				return;
 			}
-			UE_LOG(LogRuntimeSpeechRecognizer, Log, TEXT("Pending audio data instead of enqueuing it since it is not enough to fill the step size (pending: %lld, num of samples per step: %d)"), PendingAudio.GetTotalMixedAndResampledSize(), NumOfSamplesPerStep);
+			// UE_LOG(LogRuntimeSpeechRecognizer, Log, TEXT("Pending audio data instead of enqueuing it since it is not enough to fill the step size (pending: %lld, num of samples per step: %d)"), PendingAudio.GetTotalMixedAndResampledSize(), NumOfSamplesPerStep);
 		}
 		else
 		{
