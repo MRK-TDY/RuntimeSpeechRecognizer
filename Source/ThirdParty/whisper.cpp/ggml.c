@@ -19484,6 +19484,12 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
     int node_n     = -1;
     int task_phase = GGML_TASK_TYPE_FINALIZE;
 
+    
+#ifdef PLATFORM_WINDOWS
+    __try
+    {
+#endif
+
     while (true) {
         if (cplan->abort_callback && cplan->abort_callback(cplan->abort_callback_data)) {
             state->shared->node_n += 1;
@@ -19609,6 +19615,14 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
             ggml_graph_compute_thread_sync_task(&task_phase, state, false);
         }
     }
+
+#ifdef PLATFORM_WINDOWS
+    }
+    __except (EXCEPTION_ACCESS_VIOLATION)
+    {
+        
+    }
+#endif    
 
     return 0;
 }
