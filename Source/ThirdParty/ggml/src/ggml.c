@@ -18692,6 +18692,10 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
     for (int node_n = 0; node_n < cgraph->n_nodes; node_n++) {
         struct ggml_tensor * node = cgraph->nodes[node_n];
 
+#ifdef PLATFORM_WINDOWS
+        __try
+        {
+#endif
         ggml_compute_forward(&params, node);
 
         if (state->ith == 0 && cplan->abort_callback && cplan->abort_callback(cplan->abort_callback_data)) {
@@ -18699,6 +18703,13 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
         }
 
         ggml_barrier(state->shared);
+#ifdef PLATFORM_WINDOWS
+    }
+    __except (EXCEPTION_ACCESS_VIOLATION)
+    {
+        state->shared->ec = GGML_STATUS_ABORTED;
+    }
+#endif
 
         if (state->shared->ec != GGML_STATUS_SUCCESS) {
             break;

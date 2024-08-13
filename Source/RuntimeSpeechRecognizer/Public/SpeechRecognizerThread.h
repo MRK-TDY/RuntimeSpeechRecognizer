@@ -601,4 +601,7 @@ private:
 public:
 	/** The last progress made in the speech recognition process */
 	std::atomic<int32> LastProgress { 0 };
+
+private:
+	void EnclosedRun();
 };

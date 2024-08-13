@@ -574,10 +574,20 @@ void FSpeechRecognizerThread::StopThread()
 		TSharedPtr<FSpeechRecognizerThread> ThisShared = AsShared();
 		AsyncTask(ENamedThreads::AnyBackgroundHiPriTask, [ThisShared]() mutable
 		{
+#ifdef PLATFORM_WINDOWS
+__try
+{
+#endif
 			if (ThisShared)
 			{
 				ThisShared->ReleaseMemory();
 			}
+#ifdef PLATFORM_WINDOWS
+		}
+		__except (EXCEPTION_ACCESS_VIOLATION)
+		{
+		}
+#endif
 		});
 	}
 }
@@ -778,12 +788,13 @@ bool FSpeechRecognizerThread::Init()
 	return FRunnable::Init();
 }
 
-uint32 FSpeechRecognizerThread::Run()
+void FSpeechRecognizerThread::EnclosedRun()
 {
 	while (!GetIsStopped() && !GetIsStopping())
 	{
+		
 		Audio::FAlignedFloatBuffer NewQueuedBuffer;
-		while (AudioQueue.Dequeue(NewQueuedBuffer))
+		while (AudioQueue.Dequeue(NewQueuedBuffer) && !GetIsStopped() && !GetIsStopping())
 		{
 			bIsFinished.AtomicSet(false);
 
@@ -843,7 +854,23 @@ uint32 FSpeechRecognizerThread::Run()
 			});
 		}
 	}
+}
 
+uint32 FSpeechRecognizerThread::Run()
+{
+	
+#ifdef PLATFORM_WINDOWS
+	__try
+	{
+#endif
+	EnclosedRun();
+#ifdef PLATFORM_WINDOWS
+}
+	__except (EXCEPTION_ACCESS_VIOLATION)
+	{
+		Stop();
+	}
+#endif
 	return 0;
 }
 
