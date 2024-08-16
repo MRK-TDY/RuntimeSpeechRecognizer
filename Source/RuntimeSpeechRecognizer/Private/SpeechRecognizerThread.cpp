@@ -653,7 +653,7 @@ void FSpeechRecognizerThread::ProcessPCMData(Audio::FAlignedFloatBuffer PCMData,
 			return;
 		}
 		AudioQueue.Enqueue(MoveTemp(PendingAudioData));
-		UE_LOG(LogRuntimeSpeechRecognizer, Log, TEXT("Enqueued audio data from the pending audio to the queue of the speech recognizer as the last data (num of samples: %d)"), NumOfQueuedSamples);
+		UE_LOG(LogRuntimeSpeechRecognizer, Verbose, TEXT("Enqueued audio data from the pending audio to the queue of the speech recognizer as the last data (num of samples: %d)"), NumOfQueuedSamples);
 	}
 	else if (RecognitionParameters.StepSizeMs > 0)
 	{
@@ -698,7 +698,7 @@ void FSpeechRecognizerThread::ProcessPCMData(Audio::FAlignedFloatBuffer PCMData,
 	{
 		const int32 NumOfQueuedSamples = PCMData.Num();
 		AudioQueue.Enqueue(MoveTemp(PCMData));
-		UE_LOG(LogRuntimeSpeechRecognizer, Log, TEXT("Enqueued audio data from the pending audio to the queue of the speech recognizer as the last data (num of samples: %d)"), NumOfQueuedSamples);
+		UE_LOG(LogRuntimeSpeechRecognizer, Verbose, TEXT("Enqueued audio data from the pending audio to the queue of the speech recognizer as the last data (num of samples: %d)"), NumOfQueuedSamples);
 	}
 }
 
@@ -746,7 +746,7 @@ void FSpeechRecognizerThread::ForceProcessPendingAudioData()
 	}
 
 	AudioQueue.Enqueue(MoveTemp(PendingAudioData));
-	UE_LOG(LogRuntimeSpeechRecognizer, Log, TEXT("Enqueued audio data from the pending audio to the queue of the speech recognizer as the last data (num of samples: %d)"), NumOfQueuedSamples);
+	UE_LOG(LogRuntimeSpeechRecognizer, Verbose, TEXT("Enqueued audio data from the pending audio to the queue of the speech recognizer as the last data (num of samples: %d)"), NumOfQueuedSamples);
 }
 
 void FSpeechRecognizerThread::ClearAudioData(bool bClearPendingAudioData, bool bClearAudioQueue)
