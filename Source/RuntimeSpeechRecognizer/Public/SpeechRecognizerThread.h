@@ -98,66 +98,66 @@ struct RUNTIMESPEECHRECOGNIZER_API FSpeechRecognitionParameters
 	GENERATED_BODY()
 
 	/** The number of threads to use for speech recognition. Uses the number of cores if 0 */
-	UPROPERTY(BlueprintReadWrite, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
 	int32 NumOfThreads = 0;
 
 	/** The language to use for speech recognition */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	ESpeechRecognizerLanguage Language = ESpeechRecognizerLanguage::En;
 
 	/** Whether to translate the recognized words to English or not */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	bool bTranslateToEnglish = false;
 
 	/** The step size in milliseconds used to accumulate audio in the pending audio buffer to be queued (e.g. 5000 ms = 5 seconds) */
-	UPROPERTY(BlueprintReadWrite, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
 	int32 StepSizeMs = 5000;
 
 	/** Whether to use past transcription (if any) as initial prompt for the decoder */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	bool bNoContext = false;
 
 	/** Whether to force single segment output (useful for streaming) */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	bool bSingleSegment = false;
 
 	/** The maximum number of tokens per text segment (0 = no limit) */
-	UPROPERTY(BlueprintReadWrite, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
 	int32 MaxTokens = 0;
 
 	/** Whether to speed up the audio by 2x using Phase Vocoder */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	bool bSpeedUp = false;
 
 	/** The size of the audio context (0 = use default) */
-	UPROPERTY(BlueprintReadWrite, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = "0", UIMin = "0"), Category = "Runtime Speech Recognizer")
 	int32 AudioContextSize = 0;
 
 	/** The temperature to increase when falling back when the decoding fails to meet either of the thresholds below */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	float TemperatureToIncrease = 0.4f;
 
 	/** If the compression ratio is higher than this value, treat the decoding as failed. Similar to OpenAI's "compression_ratio_threshold" */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	float EntropyThreshold = 2.4f;
 
 	/** Whether to suppress blanks showing up in outputs */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	bool bSuppressBlank = true;
 
 	/** Whether to suppress non speech tokens in outputs */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	bool bSuppressNonSpeechTokens = false;
 	
 	/** Number of beams in beam search, only applicable when temperature is zero */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	int32 BeamSize = -1.f;
 
 	/**
 	 * Optional text to provide as a prompt for the first window
 	 * This can be used to provide context for the recognition to make it more likely to predict the words correctly
 	 */
-	UPROPERTY(BlueprintReadWrite, Category = "Runtime Speech Recognizer")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Runtime Speech Recognizer")
 	FString InitialPrompt;
 
 	/**
